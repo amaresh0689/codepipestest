@@ -126,7 +126,6 @@ resource "aws_instance" "web" {
   ami = var.aws_amis[var.aws_region]
 
   # Our Security group to allow HTTP and SSH access
-  vpc_security_group_ids = [aws_security_group.default.id]
   subnet_id              = aws_subnet.tf_test_subnet.id
   user_data              = file("userdata.sh")
 
