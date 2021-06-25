@@ -6,7 +6,8 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "aws_vpc" "default" {
+/*
+  resource "aws_vpc" "default" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
 
@@ -14,6 +15,7 @@ resource "aws_vpc" "default" {
     Name = "tf_test"
   }
 }
+*/
 
 resource "aws_subnet" "tf_test_subnet" {
   vpc_id                  = aws_vpc.default.id
