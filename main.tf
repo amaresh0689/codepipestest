@@ -51,38 +51,6 @@ resource "aws_route_table_association" "a" {
   route_table_id = aws_route_table.r.id
 }
 
-# Our default security group to access
-# the instances over SSH and HTTP
-resource "aws_security_group" "default" {
-  name        = "instance_sg"
-  description = "Used in the terraform"
-  vpc_id      = aws_vpc.default.id
-
-  # SSH access from anywhere
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # HTTP access from anywhere
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # outbound internet access
-  egress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "http"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 # Our elb security group to access
 # the ELB over HTTP
 resource "aws_security_group" "elb" {
@@ -101,9 +69,9 @@ resource "aws_security_group" "elb" {
 
   # outbound internet access
   egress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "http"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
