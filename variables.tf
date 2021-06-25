@@ -1,3 +1,7 @@
+variable "key_name" {
+  default     = "key-0e378fe406a8ae4a1"
+  }
+  
 variable "aws_region" {
   description = "AWS region to launch servers."
   default     = "us-east-1"
