@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13"
 }
 
 provider "aws" {
@@ -11,17 +11,17 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "codepipes_test"
+    Name = "tf_test"
   }
 }
 
-resource "aws_subnet" "codepipes_test_subnet" {
+resource "aws_subnet" "tf_test_subnet" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.0.0/24"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "codepipes_test_subnet"
+    Name = "tf_test_subnet"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name = "codepipes_test_ig"
+    Name = "tf_test_ig"
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_route_table" "r" {
 }
 
 resource "aws_route_table_association" "a" {
-  subnet_id      = aws_subnet.codepipes_test_subnet.id
+  subnet_id      = aws_subnet.tf_test_subnet.id
   route_table_id = aws_route_table.r.id
 }
 
@@ -166,7 +166,7 @@ resource "aws_instance" "web" {
 
   # Our Security group to allow HTTP and SSH access
   vpc_security_group_ids = [aws_security_group.default.id]
-  subnet_id              = aws_subnet.codepipes_test_subnet.id
+  subnet_id              = aws_subnet.tf_test_subnet.id
   user_data              = file("userdata.sh")
 
   #Instance tags
