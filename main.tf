@@ -26,7 +26,7 @@ resource "aws_subnet" "tf_test_subnet" {
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.default.id
+  default = 10.0.0.1
 
   tags = {
     Name = "tf_test_ig"
