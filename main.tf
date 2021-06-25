@@ -26,14 +26,15 @@ resource "aws_subnet" "tf_test_subnet" {
 }
 
 resource "aws_internet_gateway" "gw" {
-  default = 10.0.0.1
+  vpc_id                  = aws_vpc.default.id
 
   tags = {
     Name = "tf_test_ig"
   }
 }
 
-resource "aws_route_table" "r" {
+/*
+  resource "aws_route_table" "r" {
   vpc_id = aws_vpc.default.id
 
   route {
@@ -108,7 +109,7 @@ resource "aws_security_group" "elb" {
 # ensure the VPC has an Internet gateway or this step will fail
   depends_on = [aws_internet_gateway.gw]
 }
-
+*/
 resource "aws_elb" "web" {
   name = "example-elb"
 
